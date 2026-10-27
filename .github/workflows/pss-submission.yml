@@ -22,6 +22,7 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+  statuses: write
 
 jobs:
   submit:
@@ -96,6 +97,21 @@ jobs:
           else
             gh pr edit "$branch" --body-file pr-body.md
           fi
+
+      # GitHub does not run pull_request workflows for a pull request opened
+      # with GITHUB_TOKEN, so build.yml never fires on these. Report the build
+      # this job already ran as a commit status, so the pull request shows one.
+      # A later push by a reviewer is an ordinary push and does trigger CI.
+      - name: Report the build on the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$(git rev-parse HEAD)" \
+            -f state=success \
+            -f context='registry build' \
+            -f description='registry.md builds with no warnings' \
+            -f target_url="$RUN"
 
       - name: Tell the submitter what happened
         if: always()

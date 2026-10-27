@@ -86,6 +86,12 @@ python tools/pss_from_issue.py --body issue.md --summary pr-body.md
 The workflow can only open the pull request while **Settings > Actions > General >
 Allow GitHub Actions to create and approve pull requests** stays on.
 
+GitHub does not run `pull_request` workflows for a pull request opened by a
+workflow, so `build.yml` does not fire on these. The submission workflow builds
+the registry itself before pushing and reports the result on the pull request as
+a `registry build` commit status; a later push to the branch by a reviewer is an
+ordinary push and does trigger CI.
+
 ## File naming
 
 Documents are named `YYYYMMDD <Project> [R<n>].pdf`, where the date is the date on the
