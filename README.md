@@ -72,6 +72,11 @@ the release. The attachment must be a PDF — a `.docx` is rejected — and thos
 answers are what the file name is built from, so the submitter's own file name
 does not matter.
 
+Blank issues are turned off, so every issue starts from a form and a submission
+always arrives with the metadata the registry needs; the fields themselves are
+required, so a half-filled form cannot be sent. Anything that is not a
+submission goes through the **Something else** form, which the workflow ignores.
+
 `.github/workflows/submission.yml` then turns the issue into a pull request — it
 files the PDF under the naming convention, adds the entry to `registry.md` with
 status `Submitted`, and checks that the registry still builds. The TSC reviews

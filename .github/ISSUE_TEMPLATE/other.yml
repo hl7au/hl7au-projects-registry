@@ -1,0 +1,20 @@
+name: Something else
+description: A problem with the registry site, a correction to an entry, or anything that is not a submission.
+labels: ["registry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submitting an approved document? Use the
+        [project proposal](?template=pp-submission.yml) or
+        [scope statement](?template=pss-submission.yml) form instead — those
+        carry the metadata the registry needs and open a pull request for the
+        AU TSC. This form does not.
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: What is wrong, or what do you need?
+      description: If it is a correction, say which project and what it should say.
+    validations:
+      required: true
