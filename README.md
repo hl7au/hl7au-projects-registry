@@ -62,6 +62,13 @@ document (when the work group approved it), not the date it was emailed to the T
 FHIR implementation guides are written as "FHIR IG". PSS and NIB filenames carry the
 release as `R1`, `R2` and so on.
 
+## View options
+
+| URL | Effect |
+| --- | --- |
+| `index.html` | Content centred in the window (the default) |
+| `index.html?align=left` | Content pinned to the left edge — use this when embedding in a page that does its own centring |
+
 ## Publishing
 
 The workflow in `.github/workflows/build.yml` builds the site on every push and uploads

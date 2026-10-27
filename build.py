@@ -167,6 +167,13 @@ TEMPLATE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HL7 AU Project Registry</title>
+<script>
+  // Runs before first paint so the layout does not shift: ?align=left
+  try {
+    var align = new URLSearchParams(location.search).get('align');
+    if (align === 'left') document.documentElement.setAttribute('data-align', 'left');
+  } catch (e) {}
+</script>
 <style>
   :root {
     --bg: #ffffff;
@@ -222,6 +229,9 @@ TEMPLATE = """<!doctype html>
     font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
   .wrap { max-width: 1670px; margin: 0 auto; }
+  /* ?align=left pins the content to the left edge, for embedding in a page
+     that does its own centering. The default is centred. */
+  :root[data-align="left"] .wrap { margin-left: 0; margin-right: auto; }
   h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.01em; }
   .summary { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
   .controls { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
