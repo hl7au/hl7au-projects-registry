@@ -8,6 +8,8 @@ contact_links:
   - name: The project registry
     url: https://hl7au.github.io/hl7au-projects-registry/
     about: Every HL7 AU project, its scope statements and the documents behind them.
-  - name: Ask the HL7 AU TSC
-    url: mailto:projects@hl7.au
-    about: Questions about the registry, project proposals or the submission process.
+  # GitHub drops a contact link that is not http(s), so the TSC's address goes
+  # in the "Something else" form rather than a mailto: link here.
+  - name: How submissions work
+    url: https://github.com/hl7au/hl7au-projects-registry#submitting-to-the-tsc
+    about: What each form does, and what happens after you submit.

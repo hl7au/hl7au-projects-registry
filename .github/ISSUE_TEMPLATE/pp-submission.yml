@@ -40,7 +40,7 @@ body:
     attributes:
       label: Work group approval date
       description: The date on the document — `YYYY-MM-DD`. This is the submitted date shown in the registry, and the date in the file name.
-      placeholder: 2026-11-10
+      placeholder: "2026-11-10"
     validations:
       required: true
 

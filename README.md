@@ -95,6 +95,11 @@ not `YYYY-MM-DD`, an attachment that is not a PDF — the workflow comments the
 error on the issue. The submitter edits the issue and a maintainer re-runs the
 workflow from the Actions tab with the issue number.
 
+`tools/check_issue_forms.py` checks the forms the way GitHub parses them — it
+is stricter than a plain YAML load, because GitHub rejects a form containing an
+unquoted date and then simply leaves it out of the new-issue chooser with no
+error anywhere. CI runs it.
+
 `tools/pp_from_issue.py` and `tools/pss_from_issue.py` do the work, sharing
 `tools/registry_issue.py`, and run locally too:
 

@@ -19,6 +19,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      # An issue form GitHub rejects disappears from the new-issue chooser
+      # without any error, so check them the way GitHub parses them.
+      - name: Check the issue forms
+        run: |
+          pip install --quiet pyyaml
+          python tools/check_issue_forms.py
+
       # build.py prints a warning line for any status outside the allowed list
       # and for any PP/PSS link that does not resolve to a file in the repo.
       - name: Build index.html

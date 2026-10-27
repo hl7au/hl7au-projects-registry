@@ -11,6 +11,8 @@ body:
         carry the metadata the registry needs and open a pull request for the
         AU TSC. This form does not.
 
+        You can also email the TSC at <projects@hl7.au>.
+
   - type: textarea
     id: detail
     attributes:
