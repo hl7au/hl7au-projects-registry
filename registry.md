@@ -32,7 +32,7 @@ PP:
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2026-07-30 | Submitted | AU Provider Directory R3 PSS | PSS/20260730 AU Provider Directory FHIR IG R3.pdf |
+| 2026-07-30 | Submitted | AU Provider Directory FHIR IG R3 PSS | PSS/20260730 AU Provider Directory FHIR IG R3.pdf |
 
 ## AU0005 RCPA Structured Reporting FHIR Implementation Guide
 
@@ -48,9 +48,9 @@ PP:
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2024-06-03 | Published | AU Core R1 PSS | PSS/20240605 AU Core FHIR IG R1.pdf |
-| 2025-03-17 | Published | AU Core R2 PSS | PSS/20250317 AU Core FHIR IG R2.pdf |
-| 2026-08-18 | Approved | AU Core R3 PSS | PSS/20260302 AU Core FHIR IG R3.pdf |
+| 2024-06-03 | Published | AU Core FHIR IG R1 PSS | PSS/20240605 AU Core FHIR IG R1.pdf |
+| 2025-03-17 | Published | AU Core FHIR IG R2 PSS | PSS/20250317 AU Core FHIR IG R2.pdf |
+| 2026-08-18 | Approved | AU Core FHIR IG R3 PSS | PSS/20260302 AU Core FHIR IG R3.pdf |
 
 ## AU0010 AU eRequesting FHIR Implementation Guide
 
