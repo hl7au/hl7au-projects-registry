@@ -94,7 +94,7 @@ PP: PP/20240925 AU Patient Summary FHIR IG.pdf
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2025-03-17 | Published | HL7 AU Patient Summary R1 PSS | PSS/20250317 AU Patient Summary FHIR IG R1.pdf |
+| 2025-03-17 | Published | AU Patient Summary FHIR IG R1 PSS | PSS/20250317 AU Patient Summary FHIR IG R1.pdf |
 
 ## AU0014 AU PS Inferno Testing Framework Project
 
