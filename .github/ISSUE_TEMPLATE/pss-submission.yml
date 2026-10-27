@@ -10,9 +10,18 @@ body:
         It opens a pull request that adds the PSS to the registry with the status
         **Submitted**, for the AU TSC to consider.
 
+        1. Write the scope statement on the blank
+           [**HL7 AU PSS template**](https://github.com/hl7au/hl7au-projects-registry/raw/main/TEMPLATES/HL7%20AU%20PSS%20Template%201.0.docx)
+           (`.docx`, from `TEMPLATES/`).
+        2. Take it through your work group for approval.
+        3. Export it to **PDF** and fill in this form.
+
+        The PDF is renamed to `YYYYMMDD <Project> R<n>.pdf` from the answers
+        below, so call your file whatever you like.
+
         If the project is not in the [registry](https://hl7au.github.io/hl7au-projects-registry/)
-        yet, a new project entry is created for it — a project proposal still needs to
-        follow.
+        yet, a new project entry is created for it — a
+        [project proposal](?template=pp-submission.yml) still needs to follow.
 
   - type: input
     id: project
@@ -62,7 +71,10 @@ body:
     id: pdf
     attributes:
       label: PSS document
-      description: Drag the approved PSS **PDF** into this box to attach it. GitHub replaces it with a link.
+      description: >-
+        Drag the approved scope statement into this box to attach it — GitHub
+        replaces it with a link. It must be a **PDF**; a `.docx` is rejected and
+        the submission comes back to you.
     validations:
       required: true
 

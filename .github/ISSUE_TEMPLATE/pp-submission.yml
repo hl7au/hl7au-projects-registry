@@ -10,9 +10,17 @@ body:
         It opens a pull request that adds the project to the registry with the
         status **Submitted**, for the AU TSC to consider.
 
+        1. Write the proposal on the blank
+           [**HL7 AU PP template**](https://github.com/hl7au/hl7au-projects-registry/raw/main/TEMPLATES/HL7%20AU%20PP%20Template%201.0.docx)
+           (`.docx`, from `TEMPLATES/`).
+        2. Take it through your work group for approval.
+        3. Export it to **PDF** and fill in this form.
+
         The project ID is allocated automatically — the next one after the
-        highest in the [registry](https://hl7au.github.io/hl7au-projects-registry/).
-        Scope statements for the project are submitted separately, with the
+        highest in the [registry](https://hl7au.github.io/hl7au-projects-registry/) —
+        and the PDF is renamed to `YYYYMMDD <Project>.pdf` from the answers
+        below, so call your file whatever you like. Scope statements for the
+        project are submitted separately, with the
         [scope statement form](?template=pss-submission.yml).
 
   - type: input
@@ -48,7 +56,10 @@ body:
     id: pdf
     attributes:
       label: Project proposal document
-      description: Drag the approved project proposal **PDF** into this box to attach it. GitHub replaces it with a link.
+      description: >-
+        Drag the approved project proposal into this box to attach it — GitHub
+        replaces it with a link. It must be a **PDF**; a `.docx` is rejected and
+        the submission comes back to you.
     validations:
       required: true
 

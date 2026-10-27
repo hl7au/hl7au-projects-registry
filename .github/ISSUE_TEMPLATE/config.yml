@@ -1,5 +1,11 @@
 blank_issues_enabled: true
 contact_links:
+  - name: Blank HL7 AU templates
+    url: https://github.com/hl7au/hl7au-projects-registry/tree/main/TEMPLATES
+    about: The fill-in PP, PSS and NIB forms to write on before you submit.
+  - name: The project registry
+    url: https://hl7au.github.io/hl7au-projects-registry/
+    about: Every HL7 AU project, its scope statements and the documents behind them.
   - name: Ask the HL7 AU TSC
     url: mailto:projects@hl7.au
     about: Questions about the registry, project proposals or the submission process.

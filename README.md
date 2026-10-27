@@ -65,9 +65,12 @@ Work groups submit an approved document to the AU TSC by opening an issue:
 | [**Submit a project proposal**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pp-submission.yml) | A project, with the proposal PDF in `PP/` |
 | [**Submit a project scope statement**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-submission.yml) | A scope statement under a project, with the PSS PDF in `PSS/` |
 
-Each form asks for the project, the work group, the work group's approval date
-and the approved PDF dragged into the form; the scope statement form also asks
-for the PSS title and the release.
+Each form links the blank `.docx` template to write on, and asks for the
+project, the work group, the work group's approval date and the approved PDF
+dragged into the form; the scope statement form also asks for the PSS title and
+the release. The attachment must be a PDF — a `.docx` is rejected — and those
+answers are what the file name is built from, so the submitter's own file name
+does not matter.
 
 `.github/workflows/submission.yml` then turns the issue into a pull request — it
 files the PDF under the naming convention, adds the entry to `registry.md` with
