@@ -1,0 +1,68 @@
+name: Build registry
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # build.py prints a warning line for any status outside the allowed list
+      # and for any PP/PSS link that does not resolve to a file in the repo.
+      - name: Build index.html
+        run: |
+          python build.py | tee build.log
+          if grep -q '^warning:' build.log; then
+            echo "::error::registry.md has unresolved links or invalid statuses"
+            exit 1
+          fi
+
+      - name: Package the site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp -r PP PSS NIB _site/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: registry-site
+          path: _site
+
+  # Publishing is off until the PUBLISH_PAGES repository variable is set to
+  # "true" (Settings > Secrets and variables > Actions > Variables), because a
+  # GitHub Pages site is public even when the repository is private.
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && vars.PUBLISH_PAGES == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: registry-site
+          path: _site
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
