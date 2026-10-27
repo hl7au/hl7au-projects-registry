@@ -221,7 +221,7 @@ TEMPLATE = """<!doctype html>
     color: var(--text);
     font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  .wrap { max-width: 1340px; margin: 0 auto; }
+  .wrap { max-width: 1670px; margin: 0 auto; }
   h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.01em; }
   .summary { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
   .controls { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
@@ -281,7 +281,7 @@ TEMPLATE = """<!doctype html>
   .layout { display: flex; gap: 20px; align-items: flex-start; }
   .list { flex: 1 1 520px; min-width: 0; }
   .viewer {
-    flex: 1 1 440px; min-width: 0; position: sticky; top: 24px;
+    flex: 1 1 750px; min-width: 0; position: sticky; top: 24px;
     height: calc(100vh - 140px); min-height: 360px;
     border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
     display: flex; flex-direction: column; overflow: hidden;
