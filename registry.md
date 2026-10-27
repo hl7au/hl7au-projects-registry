@@ -108,13 +108,13 @@ PP: PP/20250206 AU Patient Summary Inferno Testing Framework.pdf
 
 ## AU0015 HL7 Australia Terminology FHIR Implementation Guide
 
-Status: Submitted
+Status: Approved
 Submitted: 2026-07-02
 PP: PP/20260702 HL7 Australia Terminology FHIR IG.pdf
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2026-09-22 | Submitted | HL7 Australia Terminology R1 PSS | PSS/20260922 HL7 Australia Terminology FHIR IG R1.pdf |
+| 2026-09-22 | Approved | HL7 Australia Terminology R1 PSS | PSS/20260922 HL7 Australia Terminology FHIR IG R1.pdf |
 
 ## AU0016 AU Encounter Record Summary FHIR Implementation Guide
 
