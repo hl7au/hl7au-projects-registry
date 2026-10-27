@@ -1,0 +1,71 @@
+name: Submit a project proposal
+description: Submit a work-group-approved project proposal to the HL7 AU TSC for approval.
+title: "PP: "
+labels: ["pp-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form once your work group has approved the project proposal.
+        It opens a pull request that adds the project to the registry with the
+        status **Submitted**, for the AU TSC to consider.
+
+        The project ID is allocated automatically — the next one after the
+        highest in the [registry](https://hl7au.github.io/hl7au-projects-registry/).
+        Scope statements for the project are submitted separately, with the
+        [scope statement form](?template=pss-submission.yml).
+
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: >-
+        The project name, as it should appear in the registry. If the project is
+        already in the registry and only the proposal is missing, give its ID
+        (e.g. `AU0016`) instead and the proposal is attached to that entry.
+      placeholder: AU Medication Decision Support FHIR Implementation Guide
+    validations:
+      required: true
+
+  - type: input
+    id: approved
+    attributes:
+      label: Work group approval date
+      description: The date on the document — `YYYY-MM-DD`. This is the submitted date shown in the registry, and the date in the file name.
+      placeholder: 2026-11-10
+    validations:
+      required: true
+
+  - type: input
+    id: workgroup
+    attributes:
+      label: Work group
+      placeholder: HL7 AU FHIR Work Group
+    validations:
+      required: true
+
+  - type: textarea
+    id: pdf
+    attributes:
+      label: Project proposal document
+      description: Drag the approved project proposal **PDF** into this box to attach it. GitHub replaces it with a link.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes for the TSC
+      description: Anything the TSC should know — sponsors, dependencies, related projects, timing.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: The work group has approved this project proposal.
+          required: true
+        - label: The attached file is the approved PDF, not a draft or a Word document.
+          required: true

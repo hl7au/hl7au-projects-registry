@@ -1,10 +1,11 @@
-name: PSS submission
+name: Registry submission
 
-# A "Submit a project scope statement" issue becomes a pull request that adds
-# the scope statement to registry.md with status "Submitted", for the AU TSC.
+# A "Submit a project proposal" or "Submit a project scope statement" issue
+# becomes a pull request that adds the document to registry.md with status
+# "Submitted", for the AU TSC.
 #
 # The issue body is untrusted input, so it is never interpolated into a shell
-# command: the script reads it from the event payload and validates every field.
+# command: the script reads it from a file and validates every field.
 
 on:
   issues:
@@ -16,7 +17,7 @@ on:
         required: true
 
 concurrency:
-  group: pss-${{ github.event.issue.number || inputs.issue }}
+  group: submission-${{ github.event.issue.number || inputs.issue }}
 
 permissions:
   contents: write
@@ -28,7 +29,8 @@ jobs:
   submit:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      contains(github.event.issue.labels.*.name, 'pss-submission')
+      contains(github.event.issue.labels.*.name, 'pss-submission') ||
+      contains(github.event.issue.labels.*.name, 'pp-submission')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,16 +45,25 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           NUMBER: ${{ github.event.issue.number || inputs.issue }}
         run: |
-          gh issue view "$NUMBER" --json body,title,author \
-            --jq '.body' > issue-body.md
-          echo "number=$NUMBER" >> "$GITHUB_OUTPUT"
-          gh issue view "$NUMBER" --json author --jq '.author.login' \
-            | sed 's/^/author=/' >> "$GITHUB_OUTPUT"
+          gh issue view "$NUMBER" --json body --jq '.body' > issue-body.md
+          labels=$(gh issue view "$NUMBER" --json labels --jq '.labels[].name')
+          case "$labels" in
+            *pp-submission*) kind=pp ;;
+            *pss-submission*) kind=pss ;;
+            *) echo "::error::issue #$NUMBER is not a submission"; exit 1 ;;
+          esac
+          {
+            echo "number=$NUMBER"
+            echo "kind=$kind"
+            echo "author=$(gh issue view "$NUMBER" --json author --jq '.author.login')"
+          } >> "$GITHUB_OUTPUT"
 
-      - name: Add the scope statement to the registry
+      - name: Add the document to the registry
         id: apply
+        env:
+          KIND: ${{ steps.issue.outputs.kind }}
         run: |
-          python tools/pss_from_issue.py \
+          python "tools/${KIND}_from_issue.py" \
             --body issue-body.md \
             --summary pr-body.md >> "$GITHUB_OUTPUT" 2> apply.log
           cat apply.log
@@ -69,16 +80,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           NUMBER: ${{ steps.issue.outputs.number }}
+          KIND: ${{ steps.issue.outputs.kind }}
           AUTHOR: ${{ steps.issue.outputs.author }}
           PROJECT: ${{ steps.apply.outputs.project }}
-          RELEASE: ${{ steps.apply.outputs.release }}
+          WHAT: ${{ steps.apply.outputs.what }}
         run: |
-          branch="pss/issue-$NUMBER"
+          branch="${KIND}/issue-$NUMBER"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add registry.md PSS
-          git commit -m "Add $PROJECT $RELEASE PSS from #$NUMBER"
+          git add registry.md PP PSS
+          git commit -m "Add $PROJECT $WHAT from #$NUMBER"
           git push --force origin "$branch"
           {
             echo ""
@@ -90,10 +102,10 @@ jobs:
           # failing on a duplicate.
           if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
             gh pr create \
-              --title "Add $PROJECT $RELEASE PSS (#$NUMBER)" \
+              --title "Add $PROJECT $WHAT (#$NUMBER)" \
               --body-file pr-body.md \
               --base main --head "$branch" \
-              --label pss-submission
+              --label "${KIND}-submission"
           else
             gh pr edit "$branch" --body-file pr-body.md
           fi

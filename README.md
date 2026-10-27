@@ -9,7 +9,7 @@ project scope statements (PSS), rendered as a single HTML page with the source P
 | --- | --- |
 | `registry.md` | The source of truth — projects, scope statements, statuses and document links |
 | `build.py` | Generates `index.html` from `registry.md` (standard library only) |
-| `tools/` | The script behind the PSS submission workflow |
+| `tools/` | The scripts behind the submission workflow |
 | `PP/` | Project proposal PDFs |
 | `PSS/` | Project scope statement PDFs |
 | `NIB/` | Notice of intent to ballot PDFs |
@@ -56,28 +56,39 @@ view in the order they appear in the file.
 Allowed statuses: `Proposed`, `Submitted`, `Approved`, `Active`, `Inactive`, `Withdrawn`,
 and `Published` for PSS rows only.
 
-## Submitting a scope statement
+## Submitting to the TSC
 
-Work groups submit an approved PSS to the AU TSC by opening a
-[**Submit a project scope statement**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-submission.yml)
-issue: project, PSS title, release, work group, the work group's approval date,
-and the approved PDF dragged into the form.
+Work groups submit an approved document to the AU TSC by opening an issue:
 
-`.github/workflows/pss-submission.yml` then turns the issue into a pull request —
-it files the PDF in `PSS/` under the naming convention, adds the scope statement
-to `registry.md` with status `Submitted`, and checks that the registry still
-builds. The TSC reviews and merges the pull request; changing the status later is
-an ordinary edit to `registry.md`.
+| Form | What it adds |
+| --- | --- |
+| [**Submit a project proposal**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pp-submission.yml) | A project, with the proposal PDF in `PP/` |
+| [**Submit a project scope statement**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-submission.yml) | A scope statement under a project, with the PSS PDF in `PSS/` |
 
-If the project is not in the registry yet, a project entry is created for it with
-the next free `AU####` ID and no proposal, and the pull request says so.
+Each form asks for the project, the work group, the work group's approval date
+and the approved PDF dragged into the form; the scope statement form also asks
+for the PSS title and the release.
+
+`.github/workflows/submission.yml` then turns the issue into a pull request — it
+files the PDF under the naming convention, adds the entry to `registry.md` with
+status `Submitted`, and checks that the registry still builds. The TSC reviews
+and merges the pull request; changing the status later is an ordinary edit to
+`registry.md`.
+
+Project IDs are allocated by the workflow: a new project gets the next `AU####`
+after the highest already in the registry. A proposal for a project that is
+already listed without one is attached to that entry instead, leaving its status
+and submitted date alone; a project that already has a proposal is refused.
+Submitting a scope statement for a project that is not listed yet creates the
+project entry with no proposal, and the pull request says so.
 
 When the submission is malformed — a release that is not `R<n>`, a date that is
 not `YYYY-MM-DD`, an attachment that is not a PDF — the workflow comments the
 error on the issue. The submitter edits the issue and a maintainer re-runs the
 workflow from the Actions tab with the issue number.
 
-`tools/pss_from_issue.py` does the work and runs locally too:
+`tools/pp_from_issue.py` and `tools/pss_from_issue.py` do the work, sharing
+`tools/registry_issue.py`, and run locally too:
 
 ```bash
 python tools/pss_from_issue.py --body issue.md --summary pr-body.md
