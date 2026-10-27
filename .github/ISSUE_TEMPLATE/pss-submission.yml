@@ -1,0 +1,85 @@
+name: Submit a project scope statement
+description: Submit a work-group-approved PSS to the HL7 AU TSC for approval.
+title: "PSS: "
+labels: ["pss-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form once your work group has approved the project scope statement.
+        It opens a pull request that adds the PSS to the registry with the status
+        **Submitted**, for the AU TSC to consider.
+
+        If the project is not in the [registry](https://hl7au.github.io/hl7au-projects-registry/)
+        yet, a new project entry is created for it — a project proposal still needs to
+        follow.
+
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: The registry project ID (e.g. `AU0009`), or the project name if it is not in the registry yet.
+      placeholder: AU0009
+    validations:
+      required: true
+
+  - type: input
+    id: pss_title
+    attributes:
+      label: PSS title
+      description: As it should appear in the registry.
+      placeholder: AU Core R3 PSS
+    validations:
+      required: true
+
+  - type: input
+    id: release
+    attributes:
+      label: Release
+      description: The release this PSS covers, as `R1`, `R2` and so on.
+      placeholder: R3
+    validations:
+      required: true
+
+  - type: input
+    id: approved
+    attributes:
+      label: Work group approval date
+      description: The date on the document — `YYYY-MM-DD`. This is the submitted date shown in the registry, and the date in the file name.
+      placeholder: 2026-08-18
+    validations:
+      required: true
+
+  - type: input
+    id: workgroup
+    attributes:
+      label: Work group
+      placeholder: HL7 AU FHIR Work Group
+    validations:
+      required: true
+
+  - type: textarea
+    id: pdf
+    attributes:
+      label: PSS document
+      description: Drag the approved PSS **PDF** into this box to attach it. GitHub replaces it with a link.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes for the TSC
+      description: Anything the TSC should know — dependencies, ballot plans, related projects.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: The work group has approved this scope statement.
+          required: true
+        - label: The attached file is the approved PDF, not a draft or a Word document.
+          required: true

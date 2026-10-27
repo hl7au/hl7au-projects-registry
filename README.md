@@ -9,6 +9,7 @@ project scope statements (PSS), rendered as a single HTML page with the source P
 | --- | --- |
 | `registry.md` | The source of truth — projects, scope statements, statuses and document links |
 | `build.py` | Generates `index.html` from `registry.md` (standard library only) |
+| `tools/` | The script behind the PSS submission workflow |
 | `PP/` | Project proposal PDFs |
 | `PSS/` | Project scope statement PDFs |
 | `NIB/` | Notice of intent to ballot PDFs |
@@ -54,6 +55,36 @@ view in the order they appear in the file.
 
 Allowed statuses: `Proposed`, `Submitted`, `Approved`, `Active`, `Inactive`, `Withdrawn`,
 and `Published` for PSS rows only.
+
+## Submitting a scope statement
+
+Work groups submit an approved PSS to the AU TSC by opening a
+[**Submit a project scope statement**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-submission.yml)
+issue: project, PSS title, release, work group, the work group's approval date,
+and the approved PDF dragged into the form.
+
+`.github/workflows/pss-submission.yml` then turns the issue into a pull request —
+it files the PDF in `PSS/` under the naming convention, adds the scope statement
+to `registry.md` with status `Submitted`, and checks that the registry still
+builds. The TSC reviews and merges the pull request; changing the status later is
+an ordinary edit to `registry.md`.
+
+If the project is not in the registry yet, a project entry is created for it with
+the next free `AU####` ID and no proposal, and the pull request says so.
+
+When the submission is malformed — a release that is not `R<n>`, a date that is
+not `YYYY-MM-DD`, an attachment that is not a PDF — the workflow comments the
+error on the issue. The submitter edits the issue and a maintainer re-runs the
+workflow from the Actions tab with the issue number.
+
+`tools/pss_from_issue.py` does the work and runs locally too:
+
+```bash
+python tools/pss_from_issue.py --body issue.md --summary pr-body.md
+```
+
+The workflow can only open the pull request while **Settings > Actions > General >
+Allow GitHub Actions to create and approve pull requests** stays on.
 
 ## File naming
 

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask the HL7 AU TSC
+    url: mailto:projects@hl7.au
+    about: Questions about the registry, project proposals or the submission process.

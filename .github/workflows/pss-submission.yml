@@ -1,0 +1,115 @@
+name: PSS submission
+
+# A "Submit a project scope statement" issue becomes a pull request that adds
+# the scope statement to registry.md with status "Submitted", for the AU TSC.
+#
+# The issue body is untrusted input, so it is never interpolated into a shell
+# command: the script reads it from the event payload and validates every field.
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number to process again
+        required: true
+
+concurrency:
+  group: pss-${{ github.event.issue.number || inputs.issue }}
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.issue.labels.*.name, 'pss-submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Read the issue
+        id: issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number || inputs.issue }}
+        run: |
+          gh issue view "$NUMBER" --json body,title,author \
+            --jq '.body' > issue-body.md
+          echo "number=$NUMBER" >> "$GITHUB_OUTPUT"
+          gh issue view "$NUMBER" --json author --jq '.author.login' \
+            | sed 's/^/author=/' >> "$GITHUB_OUTPUT"
+
+      - name: Add the scope statement to the registry
+        id: apply
+        run: |
+          python tools/pss_from_issue.py \
+            --body issue-body.md \
+            --summary pr-body.md >> "$GITHUB_OUTPUT" 2> apply.log
+          cat apply.log
+
+      - name: Check the registry still builds
+        run: |
+          python build.py | tee build.log
+          if grep -q '^warning:' build.log; then
+            echo "::error::the generated registry has warnings"
+            exit 1
+          fi
+
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ steps.issue.outputs.number }}
+          AUTHOR: ${{ steps.issue.outputs.author }}
+          PROJECT: ${{ steps.apply.outputs.project }}
+          RELEASE: ${{ steps.apply.outputs.release }}
+        run: |
+          branch="pss/issue-$NUMBER"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add registry.md PSS
+          git commit -m "Add $PROJECT $RELEASE PSS from #$NUMBER"
+          git push --force origin "$branch"
+          {
+            echo ""
+            echo "Submitted by @$AUTHOR in #$NUMBER."
+            echo ""
+            echo "Closes #$NUMBER"
+          } >> pr-body.md
+          # Re-running an issue updates the existing pull request rather than
+          # failing on a duplicate.
+          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            gh pr create \
+              --title "Add $PROJECT $RELEASE PSS (#$NUMBER)" \
+              --body-file pr-body.md \
+              --base main --head "$branch" \
+              --label pss-submission
+          else
+            gh pr edit "$branch" --body-file pr-body.md
+          fi
+
+      - name: Tell the submitter what happened
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ steps.issue.outputs.number }}
+          RESULT: ${{ job.status }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$RESULT" = "success" ]; then
+            printf 'Thanks — this submission is now a pull request for the AU TSC to review.\n' > comment.md
+          else
+            printf 'This submission could not be processed:\n\n```\n' > comment.md
+            tail -c 2000 apply.log 2>/dev/null >> comment.md || true
+            printf '\n```\n\nEdit the issue to fix it, then a maintainer can re-run the [workflow](%s).\n' "$RUN" >> comment.md
+          fi
+          gh issue comment "$NUMBER" --body-file comment.md
