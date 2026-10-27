@@ -60,8 +60,8 @@ PP: PP/20231123 AU eRequesting FHIR IG.pdf
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2025-04-17 | Published | AU eRequesting R1 PSS | PSS/20250430 AU eRequesting FHIR IG R1.pdf |
-| 2026-05-19 | Submitted | AU eRequesting R2 PSS | PSS/20260519 AU eRequesting FHIR IG R2.pdf |
+| 2025-04-17 | Published | AU eRequesting FHIR IG R1 PSS | PSS/20250430 AU eRequesting FHIR IG R1.pdf |
+| 2026-05-19 | Submitted | AU eRequesting FHIR IG R2 PSS | PSS/20260519 AU eRequesting FHIR IG R2.pdf |
 
 ## AU0011 HL7 AU FHIR Test Data Project
 
@@ -114,7 +114,7 @@ PP: PP/20260702 HL7 Australia Terminology FHIR IG.pdf
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2026-09-22 | Approved | HL7 Australia Terminology R1 PSS | PSS/20260922 HL7 Australia Terminology FHIR IG R1.pdf |
+| 2026-09-22 | Approved | HL7 Australia Terminology FHIR IG R1 PSS | PSS/20260922 HL7 Australia Terminology FHIR IG R1.pdf |
 
 ## AU0016 AU Encounter Record Summary FHIR Implementation Guide
 
