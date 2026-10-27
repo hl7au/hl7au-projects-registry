@@ -121,3 +121,9 @@ PP: PP/20260702 HL7 Australia Terminology FHIR IG.pdf
 Status: Approved
 Submitted: 2026-10-03
 PP: PP/20261003 AU Encounter Record Summary FHIR IG.pdf
+
+## AU0017 AU Test PP FHIR Implementation Guide
+
+Status: Submitted
+Submitted: 2026-10-27
+PP: PP/20261027 AU Test PP FHIR IG.pdf
