@@ -83,7 +83,7 @@ PP: PP/20240207 AU Core Inferno Testing Framework.pdf
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
 | 2024-01-31 | Published | AU Core Inferno Testing Framework Project R1 PSS | PSS/20240207 AU Core Inferno Testing Framework R1.pdf |
-| 2025-11-04 | Submitted | AU Core Inferno Testing Framework Project R2 PSS | PSS/20251104 AU Core Inferno Testing Framework R2.pdf |
+| 2025-11-04 | Published | AU Core Inferno Testing Framework Project R2 PSS | PSS/20251104 AU Core Inferno Testing Framework R2.pdf |
 | 2026-04-21 | Submitted | AU Core Inferno Testing Framework Project R3 PSS | PSS/20260421 AU Core Inferno Testing Framework R3.pdf |
 
 ## AU0013 AU Patient Summary FHIR Implementation Guide
@@ -104,7 +104,7 @@ PP: PP/20250206 AU Patient Summary Inferno Testing Framework.pdf
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2026-08-08 | Submitted | AU Patient Summary Inferno Testing Framework R1 PSS | PSS/20251104 AU Patient Summary Inferno Testing Framework R1.pdf |
+| 2026-08-08 | Published | AU Patient Summary Inferno Testing Framework R1 PSS | PSS/20251104 AU Patient Summary Inferno Testing Framework R1.pdf |
 
 ## AU0015 HL7 Australia Terminology FHIR Implementation Guide
 
