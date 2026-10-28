@@ -124,6 +124,6 @@ PP: PP/20261003 AU Encounter Record Summary FHIR IG.pdf
 
 ## AU0017 AU Test PP FHIR Implementation Guide
 
-Status: Submitted
+Status: Approved
 Submitted: 2026-10-27
 PP: PP/20261027 AU Test PP FHIR IG.pdf
