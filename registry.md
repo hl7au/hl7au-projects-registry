@@ -50,7 +50,7 @@ PP:
 | --- | --- | --- | --- | --- |
 | R1 | 2024-06-03 | Published | AU Core FHIR IG R1 PSS | PSS/20240605 AU Core FHIR IG R1.pdf |
 | R2 | 2025-03-17 | Published | AU Core FHIR IG R2 PSS | PSS/20250317 AU Core FHIR IG R2.pdf |
-| R3 | 2026-08-18 | Approved | AU Core FHIR IG R3 PSS | PSS/20260302 AU Core FHIR IG R3.pdf |
+| R3 | 2026-08-18 | Approved | AU Core FHIR IG R3 PSS | PSS/20261030 AU Core FHIR IG R3.pdf |
 
 ## AU0010 AU eRequesting FHIR Implementation Guide
 
