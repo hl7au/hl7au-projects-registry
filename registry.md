@@ -120,5 +120,5 @@ PP: PP/20260702 HL7 Australia Terminology FHIR IG.pdf
 
 Status: Approved
 Submitted: 2026-10-03
-PP: PP/20261003 AU Encounter Record Summary FHIR IG.pdf
+PP: PP/20261030 AU Encounter Record Summary FHIR IG.pdf
 
