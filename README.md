@@ -91,7 +91,12 @@ and merges the pull request; changing the status later is an ordinary edit to
 `registry.md`.
 
 Project IDs are allocated by the workflow: a new project gets the next `AU####`
-after the highest already in the registry. A proposal for a project that is
+after the highest already in the registry. Two submissions for the same new
+project — a PP and its first PSS, sent together — are each allocated that ID
+against `main`, so both claim it until one is merged. Merge the proposal first,
+then re-run the scope statement's issue from the Actions tab: it rebuilds its
+branch against the updated registry and finds the project by name. `build.py`
+warns if two entries ever end up sharing an ID, so CI stops it landing. A proposal for a project that is
 already listed without one is attached to that entry instead, leaving its status
 and submitted date alone; a project that already has a proposal is refused.
 Submitting a scope statement for a project that is not listed yet creates the

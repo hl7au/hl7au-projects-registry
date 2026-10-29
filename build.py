@@ -71,6 +71,11 @@ def parse(path):
 def check(projects, root):
     """Return a list of warnings about statuses and missing PDFs."""
     warnings = []
+    # Two submissions for the same new project are each allocated the next free
+    # ID against main, so both can claim it until one of them is merged.
+    ids = [p["id"] for p in projects]
+    for pid in sorted(set(i for i in ids if ids.count(i) > 1)):
+        warnings.append("%s: appears %d times - two entries share an ID" % (pid, ids.count(pid)))
     for p in projects:
         if p["status"] not in PROJECT_STATUSES:
             warnings.append("%s: project status %r is not an allowed status" % (p["id"], p["status"]))

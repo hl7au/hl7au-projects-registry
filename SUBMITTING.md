@@ -22,8 +22,7 @@ project entry, and the pull request tells the TSC a proposal is still owed.
 
 ## 1. Write the document
 
-Start from the blank HL7 AU template — never from an old copy of someone else's
-document, which carries their metadata.
+Templates can be used to complete document submissions.
 
 - [HL7 AU PP Template](TEMPLATES/HL7%20AU%20PP%20Template%201.0.docx)
 - [HL7 AU PSS Template](TEMPLATES/HL7%20AU%20PSS%20Template%201.0.docx)
@@ -54,6 +53,13 @@ project is new, or its ID if the project is listed but has no proposal on file.
 
 The project ID for a new project is allocated for you — the next number after
 the highest in the [registry](https://hl7au.github.io/hl7au-projects-registry/).
+
+A new project's PP and its first PSS can be submitted at the same time. The
+project has no registry ID yet, so give the **project name** in the PSS form —
+spelled exactly as you gave it in the PP form, since that is what ties the two
+together. Submit the PP first and the TSC will take them in that order: the
+proposal is merged, which creates the project and its ID, and the scope
+statement is then re-run against it.
 
 ## 3. What happens next
 
