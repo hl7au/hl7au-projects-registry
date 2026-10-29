@@ -46,12 +46,14 @@ PP: PP/20231123 AU eRequesting FHIR IG.pdf
 
 | Submitted | Status | Title | PSS |
 | --- | --- | --- | --- |
-| 2025-04-17 | Published | AU eRequesting R1 PSS | PSS/20250430 AU eRequesting FHIR IG R1.pdf |
+| R1 | 2025-04-17 | Published | AU eRequesting FHIR IG R1 PSS | PSS/20250430 AU eRequesting FHIR IG R1.pdf |
 ```
 
-Leave `PP:` empty for a project with no proposal on file, and leave the last table cell
-empty for a scope statement whose PDF is not in the repository. Projects appear in the
-view in the order they appear in the file.
+The release is `R<n>` and must be unique within the project: with the project ID it is
+what identifies a scope statement, and it shows as a small pill under the project ID in
+the view. Leave `PP:` empty for a project with no proposal on file, and leave the last
+table cell empty for a scope statement whose PDF is not in the repository. Projects
+appear in the view in the order they appear in the file.
 
 Allowed statuses: `Proposed`, `Submitted`, `Approved`, `Active`, `Inactive`, `Withdrawn`,
 and `Published` for PSS rows only.
@@ -64,6 +66,8 @@ Work groups submit an approved document to the AU TSC by opening an issue:
 | --- | --- |
 | [**Submit a project proposal**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pp-submission.yml) | A project, with the proposal PDF in `PP/` |
 | [**Submit a project scope statement**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-submission.yml) | A scope statement under a project, with the PSS PDF in `PSS/` |
+| [**Add or update a PP PDF**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pp-pdf.yml) | A new document for a proposal already listed, found by project ID |
+| [**Add or update a PSS PDF**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-pdf.yml) | A new document for a scope statement already listed, found by project ID and release |
 
 Each form links the blank `.docx` template to write on, and asks for the
 project, the work group, the work group's approval date and the approved PDF
@@ -100,8 +104,14 @@ is stricter than a plain YAML load, because GitHub rejects a form containing an
 unquoted date and then simply leaves it out of the new-issue chooser with no
 error anywhere. CI runs it.
 
-`tools/pp_from_issue.py` and `tools/pss_from_issue.py` do the work, sharing
-`tools/registry_issue.py`, and run locally too:
+The two PDF forms change an existing entry rather than adding one. They point it at
+the new file, named from the document date they are given, and delete the superseded
+file once nothing in `registry.md` references it — the pull request shows that deletion.
+A scope statement that is not listed is refused, with the project's known releases in
+the message.
+
+`tools/pp_from_issue.py`, `tools/pss_from_issue.py` and `tools/pdf_from_issue.py`
+(`--kind pp|pss`) do the work, sharing `tools/registry_issue.py`, and run locally too:
 
 ```bash
 python tools/pss_from_issue.py --body issue.md --summary pr-body.md

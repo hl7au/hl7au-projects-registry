@@ -30,7 +30,9 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       contains(github.event.issue.labels.*.name, 'pss-submission') ||
-      contains(github.event.issue.labels.*.name, 'pp-submission')
+      contains(github.event.issue.labels.*.name, 'pp-submission') ||
+      contains(github.event.issue.labels.*.name, 'pss-pdf') ||
+      contains(github.event.issue.labels.*.name, 'pp-pdf')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,13 +50,16 @@ jobs:
           gh issue view "$NUMBER" --json body --jq '.body' > issue-body.md
           labels=$(gh issue view "$NUMBER" --json labels --jq '.labels[].name')
           case "$labels" in
-            *pp-submission*) kind=pp ;;
-            *pss-submission*) kind=pss ;;
+            *pp-submission*)  kind=pp;      label=pp-submission ;;
+            *pss-submission*) kind=pss;     label=pss-submission ;;
+            *pp-pdf*)         kind=pp-pdf;  label=pp-pdf ;;
+            *pss-pdf*)        kind=pss-pdf; label=pss-pdf ;;
             *) echo "::error::issue #$NUMBER is not a submission"; exit 1 ;;
           esac
           {
             echo "number=$NUMBER"
             echo "kind=$kind"
+            echo "label=$label"
             echo "author=$(gh issue view "$NUMBER" --json author --jq '.author.login')"
           } >> "$GITHUB_OUTPUT"
 
@@ -63,7 +68,12 @@ jobs:
         env:
           KIND: ${{ steps.issue.outputs.kind }}
         run: |
-          python "tools/${KIND}_from_issue.py" \
+          case "$KIND" in
+            pp|pss)      script=(tools/"${KIND}"_from_issue.py) ;;
+            pp-pdf)      script=(tools/pdf_from_issue.py --kind pp) ;;
+            pss-pdf)     script=(tools/pdf_from_issue.py --kind pss) ;;
+          esac
+          python "${script[@]}" \
             --body issue-body.md \
             --summary pr-body.md >> "$GITHUB_OUTPUT" 2> apply.log
           cat apply.log
@@ -81,6 +91,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           NUMBER: ${{ steps.issue.outputs.number }}
           KIND: ${{ steps.issue.outputs.kind }}
+          LABEL: ${{ steps.issue.outputs.label }}
           AUTHOR: ${{ steps.issue.outputs.author }}
           PROJECT: ${{ steps.apply.outputs.project }}
           WHAT: ${{ steps.apply.outputs.what }}
@@ -105,7 +116,7 @@ jobs:
               --title "Add $PROJECT $WHAT (#$NUMBER)" \
               --body-file pr-body.md \
               --base main --head "$branch" \
-              --label "${KIND}-submission"
+              --label "$LABEL"
           else
             gh pr edit "$branch" --body-file pr-body.md
           fi

@@ -155,6 +155,38 @@ def section_bounds(lines, start):
     return start, end
 
 
+def cells(line):
+    """The cells of a markdown table row, or None if the line is not one."""
+    stripped = line.strip()
+    if not (stripped.startswith("|") and stripped.endswith("|")):
+        return None
+    parts = [c.strip() for c in stripped[1:-1].split("|")]
+    if len(parts) != 5 or parts[0].lower() == "release" or set(parts[0]) <= {"-", ":"}:
+        return None
+    return parts
+
+
+def releases(section):
+    """The releases of every PSS row in a project's section, in order."""
+    return [c[0] for c in (cells(line) for line in section) if c]
+
+
+def find_release(lines, start, end, release):
+    """The index of the PSS row for `release`, or None."""
+    for i in range(start, end):
+        c = cells(lines[i])
+        if c and c[0].casefold() == release.casefold():
+            return i
+    return None
+
+
+def set_cell(lines, i, column, value):
+    """Replace one cell of the PSS row at `i`."""
+    c = cells(lines[i])
+    c[column] = value
+    lines[i] = "| %s |" % " | ".join(c)
+
+
 def short_name(title):
     """The short form used in file names: "... FHIR Implementation Guide" -> "... FHIR IG"."""
     stem = re.sub(r"\bFHIR Implementation Guide\b", "FHIR IG", title, flags=re.IGNORECASE)
@@ -169,7 +201,7 @@ def document_stem(title, section):
     file names when it has any. Returns (stem, taken_from_a_file).
     """
     for line in reversed(section):
-        match = re.search(r"\|\s*PSS/\d{8}\s+(.*?)\s+R\d+\.pdf\s*\|", line, re.IGNORECASE)
+        match = re.search(r"PSS/\d{8}\s+(.*?)\s+R\d+\.pdf", line, re.IGNORECASE)
         if match:
             return match.group(1), True
     for line in section:

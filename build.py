@@ -15,6 +15,7 @@ PSS_STATUSES = PROJECT_STATUSES + ["Published"]
 HEADING = re.compile(r"^##\s+(\S+)\s+(.*\S)\s*$")
 FIELD = re.compile(r"^(Status|Submitted|PP)\s*:\s*(.*?)\s*$", re.IGNORECASE)
 TABLE_ROW = re.compile(r"^\|(.*)\|\s*$")
+RELEASE = re.compile(r"^R\d+$")
 TABLE_RULE = re.compile(r"^\|[\s:|-]+\|\s*$")
 
 
@@ -49,18 +50,19 @@ def parse(path):
             row = TABLE_ROW.match(line)
             if row:
                 cells = [c.strip() for c in row.group(1).split("|")]
-                if len(cells) != 4:
+                if len(cells) != 5:
                     raise SystemExit(
-                        "%s:%d: expected 4 PSS columns, found %d" % (path, lineno, len(cells))
+                        "%s:%d: expected 5 PSS columns, found %d" % (path, lineno, len(cells))
                     )
-                if cells[0].lower() == "submitted":
+                if cells[0].lower() == "release":
                     continue  # table header
                 current["pss"].append(
                     {
-                        "submitted": cells[0],
-                        "status": cells[1],
-                        "title": cells[2],
-                        "pss": cells[3],
+                        "release": cells[0],
+                        "submitted": cells[1],
+                        "status": cells[2],
+                        "title": cells[3],
+                        "pss": cells[4],
                     }
                 )
     return projects
@@ -78,6 +80,17 @@ def check(projects, root):
         for s in p["pss"]:
             if s["status"] not in PSS_STATUSES:
                 warnings.append("%s: PSS status %r is not an allowed status" % (p["id"], s["status"]))
+            if not RELEASE.match(s["release"]):
+                warnings.append(
+                    "%s: PSS release %r is not an R<number>" % (p["id"], s["release"])
+                )
+        seen = set()
+        for s in p["pss"]:
+            # The project ID and release together address a scope statement, so
+            # a duplicate release would make one of them unreachable.
+            if s["release"] in seen:
+                warnings.append("%s: more than one %s PSS" % (p["id"], s["release"]))
+            seen.add(s["release"])
     return warnings
 
 
@@ -140,13 +153,14 @@ def render(projects):
         for s in p["pss"]:
             rows.append(
                 '<tr class="pss" data-parent="%s" hidden>'
-                '<td></td><td class="c-id"></td>'
+                '<td></td><td class="c-id"><span class="rel">%s</span></td>'
                 '<td class="c-status">%s</td>'
                 '<td class="c-date">%s</td>'
                 '<td class="c-title">%s</td>'
                 '<td class="c-doc">%s</td></tr>'
                 % (
                     html.escape(p["id"]),
+                    html.escape(s["release"]),
                     pill(s["status"]),
                     html.escape(s["submitted"] or "—"),
                     html.escape(s["title"]),
@@ -256,6 +270,12 @@ TEMPLATE = """<!doctype html>
   .c-toggle { width: 26px; padding-right: 0; }
   .c-id { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--muted); }
   tr.project .c-id { color: var(--text); font-weight: 600; }
+  /* The release sits under the project ID: together they identify a PSS. */
+  .rel {
+    display: inline-block; padding: 1px 7px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--surface);
+    font-size: 11.5px; font-weight: 600; letter-spacing: .02em; color: var(--muted);
+  }
   .c-date { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); }
   .c-doc { text-align: right; white-space: nowrap; }
   .chevron {
@@ -338,7 +358,7 @@ TEMPLATE = """<!doctype html>
         <thead>
           <tr>
             <th class="c-toggle"></th>
-            <th class="c-id">Project ID</th>
+            <th class="c-id">Project&nbsp;ID&thinsp;/&thinsp;Release</th>
             <th>Status</th>
             <th>Submitted</th>
             <th>Title</th>

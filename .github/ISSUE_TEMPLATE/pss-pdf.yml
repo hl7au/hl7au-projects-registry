@@ -1,0 +1,75 @@
+name: Add or update a PSS PDF
+description: Replace the PDF behind a scope statement already in the registry, or supply one that is missing.
+title: "PSS PDF: "
+labels: ["pss-pdf"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when a scope statement is **already listed** in the registry and
+        its document needs to change — amendments the TSC asked for, a corrected
+        version, or a PDF that was never supplied.
+
+        A scope statement is identified by its **project ID and release**, both
+        shown on its row in the
+        [registry](https://hl7au.github.io/hl7au-projects-registry/).
+
+        Submitting a scope statement for the first time? Use the
+        [scope statement form](?template=pss-submission.yml) instead.
+
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: The registry project ID.
+      placeholder: AU0009
+    validations:
+      required: true
+
+  - type: input
+    id: release
+    attributes:
+      label: Release
+      description: The release shown on the scope statement's row, as `R1`, `R2` and so on.
+      placeholder: R3
+    validations:
+      required: true
+
+  - type: input
+    id: dated
+    attributes:
+      label: Document date
+      description: >-
+        The date on this version of the document — `YYYY-MM-DD`. It becomes the
+        date in the file name, so a revised document gets its own name.
+      placeholder: "2026-10-28"
+    validations:
+      required: true
+
+  - type: textarea
+    id: pdf
+    attributes:
+      label: Document
+      description: >-
+        Drag the **PDF** into this box to attach it — GitHub replaces it with a
+        link. A `.docx` is rejected and the submission comes back to you.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: What changed
+      description: What is different in this version, and who asked for it.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: This version has been through the work group, or applies amendments the TSC asked for.
+          required: true
+        - label: The attached file is a PDF, not a draft or a Word document.
+          required: true

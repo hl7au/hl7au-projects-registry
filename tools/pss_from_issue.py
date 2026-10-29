@@ -39,8 +39,8 @@ def insert_row(lines, start, end, row):
         return
     lines[end:end] = [
         "",
-        "| Submitted | Status | Title | PSS |",
-        "| --- | --- | --- | --- |",
+        "| Release | Submitted | Status | Title | PSS |",
+        "| --- | --- | --- | --- | --- |",
         row,
     ]
 
@@ -94,7 +94,15 @@ def main():
             reg.attachment_url(values["pdf"], "PSS document"), os.path.join(root, path)
         )
 
-    insert_row(lines, start, end, "| %s | Submitted | %s | %s |" % (approved, pss_title, path))
+    if release in reg.releases(lines[start:end]):
+        reg.fail(
+            "%s already has a %s scope statement - use the "
+            "\"Add or update a PSS PDF\" form to replace its document" % (pid, release)
+        )
+    insert_row(
+        lines, start, end,
+        "| %s | %s | Submitted | %s | %s |" % (release, approved, pss_title, path),
+    )
     reg.write_lines(args.registry, lines)
 
     notes = []

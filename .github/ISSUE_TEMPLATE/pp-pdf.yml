@@ -1,0 +1,66 @@
+name: Add or update a PP PDF
+description: Replace the PDF behind a project proposal already in the registry, or supply one that is missing.
+title: "PP PDF: "
+labels: ["pp-pdf"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when a project is **already listed** in the registry and its
+        proposal document needs to change — amendments the TSC asked for, a
+        corrected version, or a proposal that was never supplied.
+
+        A project proposal is identified by its **project ID**, shown on the
+        project's row in the
+        [registry](https://hl7au.github.io/hl7au-projects-registry/).
+
+        Submitting a proposal for a project that is not listed yet? Use the
+        [project proposal form](?template=pp-submission.yml) instead.
+
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: The registry project ID.
+      placeholder: AU0016
+    validations:
+      required: true
+
+  - type: input
+    id: dated
+    attributes:
+      label: Document date
+      description: >-
+        The date on this version of the document — `YYYY-MM-DD`. It becomes the
+        date in the file name, so a revised document gets its own name.
+      placeholder: "2026-10-28"
+    validations:
+      required: true
+
+  - type: textarea
+    id: pdf
+    attributes:
+      label: Document
+      description: >-
+        Drag the **PDF** into this box to attach it — GitHub replaces it with a
+        link. A `.docx` is rejected and the submission comes back to you.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: What changed
+      description: What is different in this version, and who asked for it.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: This version has been through the work group, or applies amendments the TSC asked for.
+          required: true
+        - label: The attached file is a PDF, not a draft or a Word document.
+          required: true
