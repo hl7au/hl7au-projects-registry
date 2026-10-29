@@ -9,6 +9,7 @@ project scope statements (PSS), rendered as a single HTML page with the source P
 | --- | --- |
 | `registry.md` | The source of truth — projects, scope statements, statuses and document links |
 | `build.py` | Generates `index.html` from `registry.md` (standard library only) |
+| `SUBMITTING.md` | The guide for work group co-chairs submitting a PP or PSS |
 | `tools/` | The scripts behind the submission workflow |
 | `PP/` | Project proposal PDFs |
 | `PSS/` | Project scope statement PDFs |
@@ -60,7 +61,9 @@ and `Published` for PSS rows only.
 
 ## Submitting to the TSC
 
-Work groups submit an approved document to the AU TSC by opening an issue:
+Work groups submit an approved document to the AU TSC by opening an issue.
+[SUBMITTING.md](SUBMITTING.md) is the guide for co-chairs doing that; what
+follows is how it works underneath.
 
 | Form | What it adds |
 | --- | --- |
