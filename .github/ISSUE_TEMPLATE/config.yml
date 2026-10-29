@@ -11,5 +11,5 @@ contact_links:
   # GitHub drops a contact link that is not http(s), so the TSC's address goes
   # in the "Something else" form rather than a mailto: link here.
   - name: How to submit — the co-chair guide
-    url: https://github.com/hl7au/hl7au-projects-registry/blob/main/SUBMITTING.md
+    url: https://github.com/hl7au/hl7au-projects-registry/blob/main/INSTRUCTIONS.md
     about: Preparing a PP or PSS from the templates, submitting it, and updating the PDF later.

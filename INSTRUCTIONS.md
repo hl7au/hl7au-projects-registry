@@ -1,4 +1,4 @@
-# Submitting to the AU TSC
+# Project Proposals and Scope Statement Submission
 
 A guide for work group co-chairs. It covers writing a project proposal or scope
 statement on the HL7 AU templates, submitting it to the TSC, and replacing the
