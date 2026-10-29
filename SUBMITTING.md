@@ -35,7 +35,7 @@ When it is approved, **export it to PDF**. Word's *Save as PDF* is fine. The
 submission is rejected if you attach the `.docx`.
 
 You do not need to name the file anything in particular. The registry renames it
-to `YYYYMMDD <Project> R<n>.pdf` from what you type into the form.
+to `YYYYMMDD <Project> <Release>.pdf` from what you type into the form.
 
 ## 2. Submit it
 
@@ -48,7 +48,8 @@ Drag the PDF into the document box — GitHub uploads it and leaves a link behin
 Every field marked `*` is required.
 
 For a PSS, give the **project** as its registry ID (`AU0009`) and the
-**release** as `R1`, `R2` and so on. For a PP, give the project name if the
+**release** as it appears in the registry — `R1`, `R2` and so on for most
+projects, though a project may use another scheme. For a PP, give the project name if the
 project is new, or its ID if the project is listed but has no proposal on file.
 
 The project ID for a new project is allocated for you — the next number after
@@ -71,8 +72,8 @@ The TSC then considers it at a meeting. If it is approved the status becomes
 **Approved**, and later **Published** when the release is published. You do not
 have to do anything for those status changes.
 
-If the form was filled in wrongly — a release that is not `R<n>`, a date that is
-not `YYYY-MM-DD`, a Word document instead of a PDF — no pull request is created
+If the form was filled in wrongly — a date that is not `YYYY-MM-DD`, a release
+with spaces in it, a Word document instead of a PDF — no pull request is created
 and the reason is commented on your issue instead. Edit the issue to fix it and
 ask a TSC maintainer to re-run it; you do not need to open a new one.
 

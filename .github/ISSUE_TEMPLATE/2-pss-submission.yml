@@ -16,8 +16,8 @@ body:
         2. Take it through your work group for approval.
         3. Export it to **PDF** and fill in this form.
 
-        The PDF is renamed to `YYYYMMDD <Project> R<n>.pdf` from the answers
-        below, so call your file whatever you like.
+        The PDF is renamed to `YYYYMMDD <Project> <Release>.pdf` from the
+        answers below, so call your file whatever you like.
 
         If the project is not in the [registry](https://hl7au.github.io/hl7au-projects-registry/)
         yet, a new project entry is created for it — a
@@ -45,7 +45,10 @@ body:
     id: release
     attributes:
       label: Release
-      description: The release this PSS covers, as `R1`, `R2` and so on.
+      description: >-
+        The release this PSS covers. `R1`, `R2` and so on is the usual form;
+        another scheme such as `1.0.0` or `v2` is fine. No spaces, and it must
+        be unique within the project.
       placeholder: R3
     validations:
       required: true

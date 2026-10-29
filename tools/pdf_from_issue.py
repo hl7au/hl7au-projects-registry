@@ -63,9 +63,7 @@ def main():
     stem, _ = reg.document_stem(title, lines[start:end])
 
     if args.kind == "pss":
-        release = reg.clean(values["release"], "Release").upper()
-        if not reg.RELEASE.match(release):
-            reg.fail("the release must look like R1, R2, R3 - got %r" % release)
+        release = reg.check_release(values["release"])
         row = reg.find_release(lines, start, end, release)
         if row is None:
             known = reg.releases(lines[start:end])

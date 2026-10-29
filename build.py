@@ -15,7 +15,8 @@ PSS_STATUSES = PROJECT_STATUSES + ["Published"]
 HEADING = re.compile(r"^##\s+(\S+)\s+(.*\S)\s*$")
 FIELD = re.compile(r"^(Status|Submitted|PP)\s*:\s*(.*?)\s*$", re.IGNORECASE)
 TABLE_ROW = re.compile(r"^\|(.*)\|\s*$")
-RELEASE = re.compile(r"^R\d+$")
+# Any short token, not just R<n>: see tools/registry_issue.py.
+RELEASE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,19}$")
 TABLE_RULE = re.compile(r"^\|[\s:|-]+\|\s*$")
 
 
@@ -87,7 +88,8 @@ def check(projects, root):
                 warnings.append("%s: PSS status %r is not an allowed status" % (p["id"], s["status"]))
             if not RELEASE.match(s["release"]):
                 warnings.append(
-                    "%s: PSS release %r is not an R<number>" % (p["id"], s["release"])
+                    "%s: PSS release %r is empty or has characters that cannot be used"
+                    % (p["id"], s["release"])
                 )
         seen = set()
         for s in p["pss"]:

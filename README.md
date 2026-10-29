@@ -50,7 +50,8 @@ PP: PP/20231123 AU eRequesting FHIR IG.pdf
 | R1 | 2025-04-17 | Published | AU eRequesting FHIR IG R1 PSS | PSS/20250430 AU eRequesting FHIR IG R1.pdf |
 ```
 
-The release is `R<n>` and must be unique within the project: with the project ID it is
+The release is a short token with no spaces — `R1`, `R2` by convention, but any
+scheme a project uses — and must be unique within the project: with the project ID it is
 what identifies a scope statement, and it shows as a small pill under the project ID in
 the view. Leave `PP:` empty for a project with no proposal on file, and leave the last
 table cell empty for a scope statement whose PDF is not in the repository. Projects
@@ -102,8 +103,8 @@ and submitted date alone; a project that already has a proposal is refused.
 Submitting a scope statement for a project that is not listed yet creates the
 project entry with no proposal, and the pull request says so.
 
-When the submission is malformed — a release that is not `R<n>`, a date that is
-not `YYYY-MM-DD`, an attachment that is not a PDF — the workflow comments the
+When the submission is malformed — a date that is not `YYYY-MM-DD`, a release
+with spaces in it, an attachment that is not a PDF — the workflow comments the
 error on the issue. The submitter edits the issue and a maintainer re-runs the
 workflow from the Actions tab with the issue number.
 
@@ -136,7 +137,7 @@ ordinary push and does trigger CI.
 
 ## File naming
 
-Documents are named `YYYYMMDD <Project> [R<n>].pdf`, where the date is the date on the
+Documents are named `YYYYMMDD <Project> [<Release>].pdf`, where the date is the date on the
 document (when the work group approved it), not the date it was emailed to the TSC.
 FHIR implementation guides are written as "FHIR IG". PSS and NIB filenames carry the
 release as `R1`, `R2` and so on.

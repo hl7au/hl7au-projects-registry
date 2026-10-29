@@ -30,7 +30,7 @@ body:
     id: release
     attributes:
       label: Release
-      description: The release shown on the scope statement's row, as `R1`, `R2` and so on.
+      description: The release shown on the scope statement's row, exactly as it appears there.
       placeholder: R3
     validations:
       required: true

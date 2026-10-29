@@ -58,14 +58,12 @@ def main():
 
     project = reg.clean(values["project"], "Project")
     pss_title = reg.clean(values["pss_title"], "PSS title")
-    release = reg.clean(values["release"], "Release").upper()
+    release = reg.check_release(values["release"])
     approved = reg.check_date(
         reg.clean(values["approved"], "Work group approval date"), "the approval date"
     )
     workgroup = reg.optional(values, "workgroup")
     workgroup = reg.clean(workgroup, "Work group") if workgroup else "-"
-    if not reg.RELEASE.match(release):
-        reg.fail("the release must look like R1, R2, R3 - got %r" % release)
 
     root = os.path.dirname(os.path.abspath(args.registry)) or "."
     lines = reg.read_lines(args.registry)

@@ -24,7 +24,11 @@ MAX_PDF_BYTES = 25 * 1024 * 1024
 SECTION = re.compile(r"^###\s+(.*\S)\s*$")
 HEADING = re.compile(r"^##\s+(\S+)\s+(.*\S)\s*$")
 PROJECT_ID = re.compile(r"^AU(\d{4})$")
-RELEASE = re.compile(r"^R\d+$", re.IGNORECASE)
+# A release identifies one release of a project. "R1", "R2" is the usual
+# HL7 AU form, but any short token works - "1.0.0", "v2", "2026-ballot" -
+# as long as it carries no whitespace, so it can address an entry and go
+# into a file name.
+RELEASE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,19}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 URL = re.compile(r"https://[^\s)>\]]+")
 
@@ -75,6 +79,17 @@ def clean(value, what):
     if not value:
         fail("%s is empty" % what)
     return value
+
+
+def check_release(value):
+    """A release, normalised to the R<n> form when it is written that way."""
+    value = clean(value, "Release")
+    if not RELEASE.match(value):
+        fail(
+            "the release %r cannot be used - up to 20 characters, letters, "
+            "digits, dot, hyphen and underscore, no spaces" % value
+        )
+    return value.upper() if re.match(r"^r\d+$", value) else value
 
 
 def check_date(value, what):
