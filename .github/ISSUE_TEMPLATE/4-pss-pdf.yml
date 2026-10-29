@@ -1,28 +1,37 @@
-name: Add or update a PP PDF
-description: Replace the PDF behind a project proposal already in the registry, or supply one that is missing.
-title: "PP PDF: "
-labels: ["pp-pdf"]
+name: Add or update a PSS PDF
+description: Replace the PDF behind a scope statement already in the registry, or supply one that is missing.
+title: "PSS PDF: "
+labels: ["pss-pdf"]
 body:
   - type: markdown
     attributes:
       value: |
-        Use this when a project is **already listed** in the registry and its
-        proposal document needs to change — amendments the TSC asked for, a
-        corrected version, or a proposal that was never supplied.
+        Use this when a scope statement is **already listed** in the registry and
+        its document needs to change — amendments the TSC asked for, a corrected
+        version, or a PDF that was never supplied.
 
-        A project proposal is identified by its **project ID**, shown on the
-        project's row in the
+        A scope statement is identified by its **project ID and release**, both
+        shown on its row in the
         [registry](https://hl7au.github.io/hl7au-projects-registry/).
 
-        Submitting a proposal for a project that is not listed yet? Use the
-        [project proposal form](?template=pp-submission.yml) instead.
+        Submitting a scope statement for the first time? Use the
+        [scope statement form](?template=2-pss-submission.yml) instead.
 
   - type: input
     id: project
     attributes:
       label: Project
       description: The registry project ID.
-      placeholder: AU0016
+      placeholder: AU0009
+    validations:
+      required: true
+
+  - type: input
+    id: release
+    attributes:
+      label: Release
+      description: The release shown on the scope statement's row, as `R1`, `R2` and so on.
+      placeholder: R3
     validations:
       required: true
 

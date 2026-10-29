@@ -1,4 +1,4 @@
-name: Submit a project scope statement
+name: Submit a PSS
 description: Submit a work-group-approved PSS to the HL7 AU TSC for approval.
 title: "PSS: "
 labels: ["pss-submission"]
@@ -21,7 +21,7 @@ body:
 
         If the project is not in the [registry](https://hl7au.github.io/hl7au-projects-registry/)
         yet, a new project entry is created for it — a
-        [project proposal](?template=pp-submission.yml) still needs to follow.
+        [project proposal](?template=1-pp-submission.yml) still needs to follow.
 
   - type: input
     id: project

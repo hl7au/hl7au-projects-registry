@@ -1,4 +1,4 @@
-name: Submit a project proposal
+name: Submit a PP
 description: Submit a work-group-approved project proposal to the HL7 AU TSC for approval.
 title: "PP: "
 labels: ["pp-submission"]
@@ -21,7 +21,7 @@ body:
         and the PDF is renamed to `YYYYMMDD <Project>.pdf` from the answers
         below, so call your file whatever you like. Scope statements for the
         project are submitted separately, with the
-        [scope statement form](?template=pss-submission.yml).
+        [scope statement form](?template=2-pss-submission.yml).
 
   - type: input
     id: project

@@ -64,10 +64,10 @@ Work groups submit an approved document to the AU TSC by opening an issue:
 
 | Form | What it adds |
 | --- | --- |
-| [**Submit a project proposal**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pp-submission.yml) | A project, with the proposal PDF in `PP/` |
-| [**Submit a project scope statement**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-submission.yml) | A scope statement under a project, with the PSS PDF in `PSS/` |
-| [**Add or update a PP PDF**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pp-pdf.yml) | A new document for a proposal already listed, found by project ID |
-| [**Add or update a PSS PDF**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=pss-pdf.yml) | A new document for a scope statement already listed, found by project ID and release |
+| [**Submit a PP**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=1-pp-submission.yml) | A project, with the proposal PDF in `PP/` |
+| [**Submit a PSS**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=2-pss-submission.yml) | A scope statement under a project, with the PSS PDF in `PSS/` |
+| [**Add or update a PP PDF**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=3-pp-pdf.yml) | A new document for a proposal already listed, found by project ID |
+| [**Add or update a PSS PDF**](https://github.com/hl7au/hl7au-projects-registry/issues/new?template=4-pss-pdf.yml) | A new document for a scope statement already listed, found by project ID and release |
 
 Each form links the blank `.docx` template to write on, and asks for the
 project, the work group, the work group's approval date and the approved PDF
