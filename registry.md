@@ -22,7 +22,7 @@ PP:
 | R4 | 2024-06-04 | Published | AU Base FHIR IG R4 PSS | PSS/20240604 HL7 AU Base FHIR IG R4.pdf |
 | R5 | 2025-06-03 | Published | AU Base FHIR IG R5 PSS |  |
 | R6 | 2025-04-24 | Published | AU Base FHIR IG R6 PSS | PSS/20250430 HL7 AU Base FHIR IG R6.pdf |
-| R7 | 2026-08-18 | Approved | AU Base FHIR IG R7 PSS |  |
+| R7 | 2026-08-18 | Approved | AU Base FHIR IG R7 PSS | PSS/20260617 HL7 AU Base FHIR IG R7.pdf |
 
 ## AU0004 AU Provider Directory FHIR Implementation Guide
 
